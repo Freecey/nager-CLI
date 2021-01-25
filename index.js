@@ -1,62 +1,28 @@
-console.log("Hello, Node.JS!\n===============\n\n");
-             
-const { getCode, getName } = require("country-list");
+const { getCode } = require("country-list");
 const axios = require("axios").default;
 
 let ArgsInput = process.argv.slice(2);
 let CountryInput = ArgsInput[0];
 let YearInput = ArgsInput[1];
+
+// console.log(CountryInput);
+
 let CountryCode = getCode(CountryInput);
+// console.log(CountryCode);
 
+// let CurrentYear = new Date().getFullYear()
+// console.log(YearInput);
 
-if (
-  typeof CountryCode !== "undefined" &&
-  CountryCode !== null &&
-  YearInput.length < 5 &&
-  YearInput != 0 &&
-  !isNaN(YearInput)
-) {
-  let URLApi =
-    "https://date.nager.at/api/v2/PublicHolidays/" +
-    YearInput +
-    "/" +
-    CountryCode;
+let urlAPI ="https://date.nager.at/api/v2/PublicHolidays/"+YearInput+"/"+CountryCode;
+// console.log(urlAPI);
 
-  axios
-    .get(URLApi)
-    .then(function (response) {
-      Holidays(response.data);
-      nbrHolidays = NbHolidays(response.data);
-      console.log(
-        ` \nDuring the year ` +
-          YearInput +
-          ` there are ` +
-          nbrHolidays +
-          ` holidays in ` +
-          CountryInput +
-          `.`
-      );
-    })
-    .then(function () {
-      // always executed
-    });
-    function Holidays(jsonList) {
-        jsonList.forEach((item, index) => {
-          console.log(
-            `${index + 1} : ${item.date} - ${item.name} (${item.localName})`
-          );
-        });
-      }
-      function NbHolidays(jsonList) {
-        return jsonList.length;
-      }
-} else {
-  if (typeof CountryCode == "undefined" && CountryCode == null) {
-    console.log("Country Name Invalid");
-  }
-  if (YearInput.length > 4 || YearInput == 0 || isNaN(YearInput)) {
-    console.log("Date Invalid must be between 1 and 9999");
-  }
-}
-
-
+axios.get(urlAPI)
+.then(function (response) {
+  let items = response.data;
+  console.log(items);
+  items.forEach((item, index) => {
+    console.log(
+      `${index + 1} : ${item.date} - ${item.name} (${item.localName})`
+    );
+  });
+})
