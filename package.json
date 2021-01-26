@@ -1,8 +1,11 @@
 {
   "name": "@freecey/holidates",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "holidays for a country and a select date",
-  "main": "holy",
+  "main": "index.js",
+  "bin": {
+    "holyid": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,11 +13,11 @@
     "type": "git",
     "url": "git+https://github.com/Freecey/nager-CLI.git"
   },
-  "author": "",
+  "author": "Cedric AUDRIT",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Freecey/nager-CLI/issues",
-    "email" : "cedric@audrit.be"
+    "email": "cedric@audrit.be"
   },
   "homepage": "https://github.com/Freecey/nager-CLI#readme",
   "dependencies": {
